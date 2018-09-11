@@ -1,15 +1,21 @@
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/custom_themes")
-;; (load-theme 'blackboard t)
+(load-theme 'blackboard t)
 
-;; (require 'ruby-electric)
-;; (add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode t)))
 (setq visible-bell nil) ;; The default
 (setq ring-bell-function 'ignore)
-(global-set-key (kbd "C-x g") 'magit-status)
+
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -18,6 +24,9 @@
  '(adaptive-fill-mode nil)
  '(js-indent-level 2)
  '(markdown-command "/usr/local/bin/markdown")
+ '(package-selected-packages
+   (quote
+    (yard-mode elisp-slime-nav idle-highlight-in-visible-buffers-mode alect-themes browse-at-remote cask dockerfile-mode find-file-in-project flymake-ruby gist hcl-mode magit markdown-mode paredit rspec-mode ruby-electric ruby-refactor ruby-tools smex terraform-mode yaml-mode ido-completing-read+ pallet)))
  '(server-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -36,3 +45,11 @@
 (remove-hook 'text-mode-hook #'turn-on-auto-fill)
 (setq-default indent-tabs-mode nil) ; Don't use tabs damn it
 (add-hook 'before-save-hook 'whitespace-cleanup)
+(ido-mode 1)
+(ido-everywhere 1)
+(ido-ubiquitous-mode 1)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
