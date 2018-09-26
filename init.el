@@ -13,7 +13,18 @@
 (setq visible-bell nil) ;; The default
 (setq ring-bell-function 'ignore)
 
-(require 'cask "~/.cask/cask.el")
+(cond
+ ((string-equal system-type "windows-nt") ; Microsoft Windows
+  (progn
+    (message "Microsoft Windows")))
+ ((string-equal system-type "darwin") ; Mac OS X
+  (progn
+    (message "Mac OS X")
+    (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")))
+ ((string-equal system-type "gnu/linux") ; linux
+  (progn
+    (message "Linux")
+    (require 'cask "~/.cask/cask.el"))))
 (cask-initialize)
 
 (custom-set-variables
