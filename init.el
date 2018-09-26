@@ -38,13 +38,16 @@
  '(package-selected-packages
    (quote
     (yard-mode elisp-slime-nav idle-highlight-in-visible-buffers-mode alect-themes browse-at-remote cask dockerfile-mode find-file-in-project flymake-ruby gist hcl-mode magit markdown-mode paredit rspec-mode ruby-electric ruby-refactor ruby-tools smex terraform-mode yaml-mode ido-completing-read+ pallet)))
- '(server-mode t))
+ '(server-mode t)
+ '(text-mode-hook
+   (quote
+    (turn-on-flyspell text-mode-hook-identify hl-line-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(hl-line ((t (:inherit highlight :background "gray31")))))
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -56,6 +59,9 @@
 (remove-hook 'text-mode-hook #'turn-on-auto-fill)
 (setq-default indent-tabs-mode nil) ; Don't use tabs damn it
 (add-hook 'before-save-hook 'whitespace-cleanup)
+(add-hook 'ruby-mode-hook (lambda ()
+                            (auto-fill-mode -1)
+                            (ruby-electric-mode t)))
 (ido-mode 1)
 (ido-everywhere 1)
 (ido-ubiquitous-mode 1)
